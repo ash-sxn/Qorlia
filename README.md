@@ -45,7 +45,7 @@ Qorlia delivers open-source software services and pragmatic AI augmentations tha
 - GitHub Pages deployment is automated via `.github/workflows/deploy.yml`. Make sure the Pages settings are set to **Deploy from a branch → gh-pages / (root)** so the workflow output is published.
 - Generated assets live under `dist/` after a production build; deploy the folder to any static host if you prefer an alternative target.
 - The dark theme and brand visuals live in `src/App.css`; adjust colours and motion settings beside the component markup in `src/App.jsx`.
-- Branding now uses a minimalist triangular logomark (`src/assets/logo.svg`) aligned with the refined UI aesthetic.
+- Branding now uses a minimalist pentagon logomark (`src/assets/logo.svg`) aligned with the refined UI aesthetic.
 
 ### Contact form
 
@@ -58,6 +58,12 @@ Qorlia delivers open-source software services and pragmatic AI augmentations tha
 
 - In production, add the same value as a repository secret named `VITE_FORMSPREE_ENDPOINT`; the deployment workflow injects it during `npm run build`.
 - Until the endpoint is configured, the form surfaces a notice and keeps a mailto fallback alive.
+
+## API Server
+
+- The Node.js / Express backend lives under `server/` and is written in TypeScript.
+- Copy `server/.env.example` to `server/.env`, install dependencies via `npm install`, and start the dev server using `npm run dev`.
+- Initial modules include authentication (JWT-based), subscription scaffolding, and provisioning endpoints with mocked IaC orchestration. See `docs/backend-overview.md` and `server/README.md` for detailed architecture and roadmap notes.
 
 ## Connect
 
