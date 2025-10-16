@@ -1,7 +1,4 @@
 <svg width="120" height="120" viewBox="0 0 120 120" xmlns="http://www.w3.org/2000/svg" role="img" aria-labelledby="title">
   <title>Qorlia logo</title>
-  <polygon
-    points="60,6 112,44 92,108 28,108 8,44"
-    fill="#000000"
-  />
+  <polygon points="60 12 108 108 12 108" fill="#ffffff"/>
 </svg>

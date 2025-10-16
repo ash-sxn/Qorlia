@@ -45,6 +45,7 @@ Qorlia delivers open-source software services and pragmatic AI augmentations tha
 - GitHub Pages deployment is automated via `.github/workflows/deploy.yml`. Make sure the Pages settings are set to **Deploy from a branch → gh-pages / (root)** so the workflow output is published.
 - Generated assets live under `dist/` after a production build; deploy the folder to any static host if you prefer an alternative target.
 - The dark theme and brand visuals live in `src/App.css`; adjust colours and motion settings beside the component markup in `src/App.jsx`.
+- Branding now uses a minimalist triangular logomark (`src/assets/logo.svg`) aligned with the refined UI aesthetic.
 
 ### Contact form
 

@@ -17,6 +17,21 @@ const navLinks = [
   { href: "#contact", label: "Talk to Us" },
 ];
 
+const heroHighlights = [
+  {
+    label: "Healthcare rollouts",
+    value: "20+ hospitals live on Bahmni",
+  },
+  {
+    label: "ERP transformations",
+    value: "Weeks to launch, not quarters",
+  },
+  {
+    label: "Automation impact",
+    value: "Up to 40% faster ops cycles",
+  },
+];
+
 const services = [
   {
     title: "Managed Deployments",
@@ -128,7 +143,7 @@ const timeline = [
   {
     title: "Operate & Scale",
     body:
-      "Optimization, AI-led enhancements, and roadmap planning keep operations ahead of growth.",
+      "Optimisation, AI-led enhancements, and roadmap planning keep operations ahead of growth.",
   },
 ];
 
@@ -141,15 +156,6 @@ const fadeIn = (delay = 0, y = 24) => ({
   },
 });
 
-const scaleUp = {
-  hidden: { opacity: 0, scale: 0.85 },
-  visible: {
-    opacity: 1,
-    scale: 1,
-    transition: { duration: 0.6, ease: "easeOut" },
-  },
-};
-
 function App() {
   const [showIntro, setShowIntro] = useState(true);
   const [navOpen, setNavOpen] = useState(false);
@@ -157,7 +163,7 @@ function App() {
   const [formError, setFormError] = useState("");
 
   useEffect(() => {
-    const timer = window.setTimeout(() => setShowIntro(false), 2400);
+    const timer = window.setTimeout(() => setShowIntro(false), 2200);
     return () => window.clearTimeout(timer);
   }, []);
 
@@ -214,9 +220,7 @@ function App() {
     <LayoutGroup>
       <div className={`app-shell ${navOpen ? "nav-open" : ""}`}>
         <AnimatePresence mode="wait">
-          {showIntro && (
-            <IntroOverlay key="intro-overlay" />
-          )}
+          {showIntro && <IntroOverlay key="intro-overlay" />}
         </AnimatePresence>
         <Header showBrand={!showIntro} navOpen={navOpen} onToggle={() => setNavOpen((v) => !v)} />
         <AnimatePresence>
@@ -239,82 +243,32 @@ function App() {
         </AnimatePresence>
 
         <main>
-          <motion.section
-            className="hero"
-            initial="hidden"
-            animate="visible"
-            variants={fadeIn(0)}
-          >
-            <div className="container hero-grid">
-              <motion.div className="hero-copy" variants={fadeIn(0)} initial="hidden" animate="visible">
-                <motion.p className="eyebrow" variants={fadeIn(0.1)}>
-                  Open source first · Applied AI where it counts
-                </motion.p>
-                <motion.h1 variants={fadeIn(0.2)}>
-                  Build resilient operations with open-source platforms and pragmatic AI.
-                </motion.h1>
-                <motion.p className="lead" variants={fadeIn(0.3)}>
-                  Qorlia combines deployed experience across Bahmni and ERPNext with automation
-                  accelerators that boost productivity for teams in India and globally.
-                </motion.p>
-                <motion.div className="hero-actions" variants={fadeIn(0.4)}>
-                  <a className="btn primary" href="#contact">
-                    Book a strategy call
-                  </a>
-                  <a className="btn ghost" href="#services">
-                    Explore our services
-                  </a>
-                </motion.div>
-                <motion.div className="badge-row" variants={fadeIn(0.5)}>
-                  {["Bahmni specialists", "ERPNext certified", "Terraform IaC"].map((badge) => (
-                    <motion.span key={badge} className="badge" whileHover={{ scale: 1.05 }}>
-                      {badge}
-                    </motion.span>
-                  ))}
-                </motion.div>
+          <motion.section className="hero" initial="hidden" animate="visible" variants={fadeIn(0)}>
+            <div className="container hero-inner">
+              <motion.p className="eyebrow" variants={fadeIn(0.1)}>
+                Open-source first · Applied AI where it matters
+              </motion.p>
+              <motion.h1 variants={fadeIn(0.2)}>
+                Modernise operations with clarity, speed, and open foundations.
+              </motion.h1>
+              <motion.p className="lead" variants={fadeIn(0.3)}>
+                Qorlia deploys Bahmni, ERPNext, and AI extensions with the precision of a product team—so you gain world-class tooling without the vendor lock-in.
+              </motion.p>
+              <motion.div className="hero-actions" variants={fadeIn(0.4)}>
+                <a className="btn primary" href="#contact">
+                  Book a strategy call
+                </a>
+                <a className="btn subtle" href="#services">
+                  View capabilities
+                </a>
               </motion.div>
-
-              <motion.div className="hero-visual" variants={scaleUp} initial="hidden" animate="visible">
-                <div className="orbital">
-                  <motion.div
-                    className="orbital-ring"
-                    animate={{ rotate: 360 }}
-                    transition={{ repeat: Infinity, duration: 18, ease: "linear" }}
-                  />
-                  <motion.div
-                    className="orbital-core"
-                    animate={{ boxShadow: ["0 0 40px rgba(248, 113, 113, 0.3)", "0 0 80px rgba(59, 130, 246, 0.35)", "0 0 40px rgba(248, 113, 113, 0.3)"] }}
-                    transition={{ repeat: Infinity, duration: 6, ease: "easeInOut" }}
-                  >
-                    <motion.div
-                      className="metric"
-                      initial={{ opacity: 0, y: 18 }}
-                      animate={{ opacity: 1, y: 0 }}
-                      transition={{ delay: 0.5, duration: 0.6 }}
-                    >
-                      <span className="metric-label">Patient wait time</span>
-                      <span className="metric-value">-27%</span>
-                    </motion.div>
-                    <motion.div
-                      className="metric"
-                      initial={{ opacity: 0, y: 18 }}
-                      animate={{ opacity: 1, y: 0 }}
-                      transition={{ delay: 0.7, duration: 0.6 }}
-                    >
-                      <span className="metric-label">Inventory accuracy</span>
-                      <span className="metric-value">+34%</span>
-                    </motion.div>
-                    <motion.div
-                      className="metric"
-                      initial={{ opacity: 0, y: 18 }}
-                      animate={{ opacity: 1, y: 0 }}
-                      transition={{ delay: 0.9, duration: 0.6 }}
-                    >
-                      <span className="metric-label">Revenue visibility</span>
-                      <span className="metric-value">Real-time</span>
-                    </motion.div>
-                  </motion.div>
-                </div>
+              <motion.div className="hero-foot" variants={fadeIn(0.5)}>
+                {heroHighlights.map((highlight) => (
+                  <div key={highlight.label} className="hero-metric">
+                    <span className="hero-metric-label">{highlight.label}</span>
+                    <span className="hero-metric-value">{highlight.value}</span>
+                  </div>
+                ))}
               </motion.div>
             </div>
           </motion.section>
@@ -329,9 +283,9 @@ function App() {
           >
             <div className="container">
               <motion.div className="section-header" variants={fadeIn(0.1)}>
-                <h2>Services tailored for measurable impact</h2>
+                <h2>Services engineered for measurable impact</h2>
                 <p>
-                  Consulting, engineering, and operations bundled into engagements that accelerate modernisation without lock-in.
+                  Product thinking meets enterprise delivery—bundling consulting, engineering, and operations into clear engagement tracks.
                 </p>
               </motion.div>
               <div className="card-grid">
@@ -339,8 +293,8 @@ function App() {
                   <motion.article
                     key={service.title}
                     className="card"
-                    variants={fadeIn(0.15 * index)}
-                    whileHover={{ translateY: -8, borderColor: "rgba(236, 72, 153, 0.6)" }}
+                    variants={fadeIn(0.12 * index)}
+                    whileHover={{ translateY: -6 }}
                   >
                     <h3>{service.title}</h3>
                     <p>{service.description}</p>
@@ -360,14 +314,14 @@ function App() {
             className="section alt"
             initial="hidden"
             whileInView="visible"
-            viewport={{ once: true, amount: 0.25 }}
+            viewport={{ once: true, amount: 0.3 }}
             variants={fadeIn(0)}
           >
             <div className="container">
               <motion.div className="section-header" variants={fadeIn(0.1)}>
                 <h2>Platforms we operate and extend</h2>
                 <p>
-                  Trusted open-source ecosystems with thriving communities—implemented with configurations that match your reality.
+                  We build on trusted open-source ecosystems and tailor them to the realities of your industry, compliance, and scale.
                 </p>
               </motion.div>
               <div className="platform-grid">
@@ -376,7 +330,7 @@ function App() {
                     key={platform.name}
                     className="platform-card"
                     variants={fadeIn(0.12 * index)}
-                    whileHover={{ translateY: -10, boxShadow: "0 30px 60px rgba(236, 72, 153, 0.25)" }}
+                    whileHover={{ translateY: -6 }}
                   >
                     <span className="platform-badge">{platform.category}</span>
                     <h3>{platform.name}</h3>
@@ -404,11 +358,11 @@ function App() {
               <motion.div variants={fadeIn(0.1)}>
                 <h2>AI enablement grounded in outcomes</h2>
                 <p>
-                  We start with measurable KPIs, data readiness, and governance. Iterative experiments surface ROI within weeks, not quarters.
+                  We prioritise measurable KPIs, responsible data practices, and fast iteration—delivering ROI within weeks, not quarters.
                 </p>
                 <div className="pill-list">
                   {aiPills.map((pill) => (
-                    <motion.span key={pill} whileHover={{ scale: 1.05 }}>
+                    <motion.span key={pill} whileHover={{ scale: 1.04 }}>
                       {pill}
                     </motion.span>
                   ))}
@@ -427,7 +381,7 @@ function App() {
 
           <motion.section
             id="infrastructure"
-            className="section alt"
+            className="section"
             initial="hidden"
             whileInView="visible"
             viewport={{ once: true, amount: 0.4 }}
@@ -437,23 +391,23 @@ function App() {
               <motion.div className="highlight-card" variants={fadeIn(0.1)}>
                 <h3>Terraform-driven infrastructure</h3>
                 <p>
-                  Codified environments launch, clone, or migrate workloads with confidence. Reusable modules and runbooks align to your security posture.
+                  Codified environments help your teams launch, clone, and migrate workloads confidently—with security and compliance baked in.
                 </p>
                 <ul>
-                  <li>Multi-cloud templates for AWS, Azure, and GCP</li>
+                  <li>Reference templates for AWS, Azure, and GCP</li>
                   <li>GitOps deployment pipelines</li>
                   <li>Policy-as-code guardrails</li>
                   <li>Secrets management and backup automation</li>
                 </ul>
               </motion.div>
               <motion.div variants={fadeIn(0.2)}>
-                <h2>Scale from cloud to co-located racks</h2>
+                <h2>Scale from cloud to dedicated racks</h2>
                 <p>
-                  Launch fast on managed cloud, then transition to dedicated hardware once economics favour owned capacity. We orchestrate the entire lifecycle.
+                  Start fast on managed cloud and switch to owned hardware once utilisation and scale justify it—we orchestrate the whole lifecycle.
                 </p>
                 <div className="pill-list">
                   {infraPills.map((pill) => (
-                    <motion.span key={pill} whileHover={{ scale: 1.05 }}>
+                    <motion.span key={pill} whileHover={{ scale: 1.04 }}>
                       {pill}
                     </motion.span>
                   ))}
@@ -467,13 +421,13 @@ function App() {
             className="section"
             initial="hidden"
             whileInView="visible"
-            viewport={{ once: true, amount: 0.3 }}
+            viewport={{ once: true, amount: 0.35 }}
             variants={fadeIn(0)}
           >
             <div className="container">
               <motion.div className="section-header" variants={fadeIn(0.1)}>
                 <h2>How we partner with your team</h2>
-                <p>Transparent milestones keep transformation predictable and stress-free.</p>
+                <p>Transparent milestones keep every transformation predictable.</p>
               </motion.div>
               <div className="timeline">
                 {timeline.map((item, index) => (
@@ -481,7 +435,7 @@ function App() {
                     key={item.title}
                     className="timeline-item"
                     variants={fadeIn(0.12 * index)}
-                    whileHover={{ scale: 1.01 }}
+                    whileHover={{ translateY: -4 }}
                   >
                     <div className="timeline-marker">{index + 1}</div>
                     <div>
@@ -504,9 +458,9 @@ function App() {
           >
             <div className="container cta-container">
               <motion.div variants={fadeIn(0.1)}>
-                <h2>Let’s build your next advantage</h2>
+                <h2>Let’s build your next operational advantage</h2>
                 <p>
-                  Digitising hospital networks, streamlining manufacturing, or rebooting back-office operations—Qorlia brings the open-source foundations and AI accelerators you need.
+                  From digitising hospital networks to streamlining manufacturing ops, Qorlia delivers the open foundations and AI accelerators to get you there.
                 </p>
               </motion.div>
               <motion.a className="btn primary" href="#contact" variants={fadeIn(0.2)}>
@@ -527,7 +481,7 @@ function App() {
               <motion.div variants={fadeIn(0.1)}>
                 <h2>Talk to the Qorlia team</h2>
                 <p>
-                  Share your current challenges and ambitions—we'll respond with a tailored rollout plan within two business days.
+                  Share your current challenges and ambitions—we'll reply with a tailored rollout plan within two business days.
                 </p>
                 <div className="contact-card">
                   <div>
@@ -622,7 +576,7 @@ function Header({ showBrand, navOpen, onToggle }) {
                 className="brand-name"
                 layoutId="brand-name"
                 key="brand-name"
-                initial={{ opacity: 0, y: 8 }}
+                initial={{ opacity: 0, y: 6 }}
                 animate={{ opacity: 1, y: 0 }}
                 exit={{ opacity: 0, y: -6 }}
               >
@@ -661,20 +615,20 @@ function IntroOverlay() {
       initial={{ opacity: 1 }}
       animate={{ opacity: 1 }}
       exit={{ opacity: 0 }}
-      transition={{ duration: 0.6, ease: "easeInOut", delay: 1.2 }}
+      transition={{ duration: 0.5, ease: "easeInOut", delay: 1.2 }}
     >
       <motion.div
         className="intro-card"
         initial={{ opacity: 0, scale: 0.8 }}
         animate={{ opacity: 1, scale: 1 }}
-        transition={{ duration: 0.8, ease: "easeOut" }}
+        transition={{ duration: 0.6, ease: "easeOut" }}
       >
         <motion.div
           className="intro-logo"
           layoutId="brand-icon"
-          initial={{ scale: 0.9 }}
-          animate={{ scale: 1 }}
-          transition={{ duration: 0.8, ease: "easeOut" }}
+          initial={{ scale: 0.8, opacity: 0 }}
+          animate={{ scale: 1, opacity: 1 }}
+          transition={{ duration: 0.6, ease: "easeOut" }}
         >
           <img src={logo} alt="Qorlia logo" />
         </motion.div>
@@ -683,15 +637,11 @@ function IntroOverlay() {
           layoutId="brand-name"
           initial={{ opacity: 0, y: 12 }}
           animate={{ opacity: 1, y: 0 }}
-          transition={{ delay: 0.3, duration: 0.6 }}
+          transition={{ delay: 0.2, duration: 0.5 }}
         >
           Qorlia
         </motion.span>
-        <motion.p
-          initial={{ opacity: 0, y: 10 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ delay: 0.5, duration: 0.6 }}
-        >
+        <motion.p initial={{ opacity: 0, y: 8 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.35 }}>
           Open-source software · Applied intelligence
         </motion.p>
       </motion.div>
@@ -711,7 +661,7 @@ function Footer() {
             <span className="brand-name">Qorlia</span>
           </div>
           <p className="footer-copy">
-            Open-source software, applied AI, and infrastructure automation that keeps your operations resilient.
+            Managed open-source software, applied AI, and infrastructure automation to keep your teams shipping with confidence.
           </p>
         </div>
         <div>
@@ -732,7 +682,7 @@ function Footer() {
               Email
             </label>
             <input id="subscribe-email" type="email" placeholder="you@company.com" disabled />
-            <button type="submit" className="btn secondary" disabled>
+            <button type="submit" className="btn subtle" disabled>
               Notify me
             </button>
             <p className="form-footnote">
