@@ -33,9 +33,10 @@ Qorlia delivers open-source software services and pragmatic AI augmentations tha
 
 ## Website
 
-- The landing page is a static build (`index.html` and `styles/main.css`) optimised for static hosting providers such as GitHub Pages, Netlify, or Cloudflare Pages.
-- Preview locally by opening `index.html` in a browser or using any static file server (e.g., `npx serve` if Node.js is available).
-- Update copy and sections directly in the HTML file; component-level styling lives in the corresponding CSS for straightforward iteration.
+- The landing experience now runs on Vite + React with Framer Motion animations (see `src/`).
+- Install dependencies with `npm install`, start a dev server via `npm run dev`, and build for production using `npm run build`.
+- Generated assets live under `dist/` after a production build; deploy the folder to any static host (GitHub Pages, Netlify, Cloudflare Pages, etc.).
+- The dark theme and brand visuals live in `src/App.css`; adjust colours and motion settings beside the component markup in `src/App.jsx`.
 
 ## Connect
 
