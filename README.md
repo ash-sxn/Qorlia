@@ -31,8 +31,13 @@ Qorlia delivers open-source software services and pragmatic AI augmentations tha
 - Offer optional co-located hosting for scale-driven cost efficiencies.
 - Build knowledge base and playbooks for regulated industries and global rollouts.
 
+## Website
+
+- The landing page is a static build (`index.html` and `styles/main.css`) optimised for static hosting providers such as GitHub Pages, Netlify, or Cloudflare Pages.
+- Preview locally by opening `index.html` in a browser or using any static file server (e.g., `npx serve` if Node.js is available).
+- Update copy and sections directly in the HTML file; component-level styling lives in the corresponding CSS for straightforward iteration.
+
 ## Connect
 
 - Questions & collaborations: `hello@qorlia.com`
 - Interested in partnering or piloting a deployment? Open an issue or reach out directly.
-
