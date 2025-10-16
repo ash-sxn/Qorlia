@@ -2,6 +2,12 @@ import { useEffect, useState } from "react";
 import { AnimatePresence, LayoutGroup, motion } from "framer-motion";
 import logo from "./assets/logo.svg";
 
+const formEndpointDefault = "https://formspree.io/f/your-form-id";
+const FORM_ENDPOINT =
+  import.meta.env.VITE_FORMSPREE_ENDPOINT && import.meta.env.VITE_FORMSPREE_ENDPOINT.trim() !== ""
+    ? import.meta.env.VITE_FORMSPREE_ENDPOINT
+    : formEndpointDefault;
+
 const navLinks = [
   { href: "#services", label: "Services" },
   { href: "#platforms", label: "Platforms" },
@@ -147,6 +153,8 @@ const scaleUp = {
 function App() {
   const [showIntro, setShowIntro] = useState(true);
   const [navOpen, setNavOpen] = useState(false);
+  const [formStatus, setFormStatus] = useState("idle");
+  const [formError, setFormError] = useState("");
 
   useEffect(() => {
     const timer = window.setTimeout(() => setShowIntro(false), 2400);
@@ -168,6 +176,39 @@ function App() {
     document.addEventListener("click", handler);
     return () => document.removeEventListener("click", handler);
   }, [navOpen]);
+
+  const formDisabled = FORM_ENDPOINT === formEndpointDefault;
+
+  const handleContactSubmit = async (event) => {
+    event.preventDefault();
+    if (formDisabled) {
+      setFormError("Contact form endpoint not configured yet. Update VITE_FORMSPREE_ENDPOINT.");
+      return;
+    }
+    const form = event.currentTarget;
+    const data = new FormData(form);
+    setFormStatus("submitting");
+    setFormError("");
+    try {
+      const response = await fetch(FORM_ENDPOINT, {
+        method: "POST",
+        headers: { Accept: "application/json" },
+        body: data,
+      });
+      if (response.ok) {
+        setFormStatus("success");
+        form.reset();
+      } else {
+        const result = await response.json().catch(() => null);
+        const message = result?.errors?.[0]?.message || "We couldn't send the message. Try again.";
+        setFormError(message);
+        setFormStatus("error");
+      }
+    } catch (error) {
+      setFormError("Network error. Please try again.");
+      setFormStatus("error");
+    }
+  };
 
   return (
     <LayoutGroup>
@@ -499,18 +540,23 @@ function App() {
                   </div>
                 </div>
               </motion.div>
-              <motion.form className="contact-form" aria-label="contact form" variants={fadeIn(0.2)}>
+              <motion.form
+                className="contact-form"
+                aria-label="contact form"
+                variants={fadeIn(0.2)}
+                onSubmit={handleContactSubmit}
+              >
                 <div className="form-group">
                   <label htmlFor="name">Name</label>
-                  <input id="name" name="name" type="text" placeholder="Your name" disabled />
+                  <input id="name" name="name" type="text" placeholder="Your name" required />
                 </div>
                 <div className="form-group">
                   <label htmlFor="email">Email</label>
-                  <input id="email" name="email" type="email" placeholder="you@company.com" disabled />
+                  <input id="email" name="email" type="email" placeholder="you@company.com" required />
                 </div>
                 <div className="form-group">
                   <label htmlFor="company">Company</label>
-                  <input id="company" name="company" type="text" placeholder="Company name" disabled />
+                  <input id="company" name="company" type="text" placeholder="Company name" />
                 </div>
                 <div className="form-group">
                   <label htmlFor="message">How can we help?</label>
@@ -519,16 +565,27 @@ function App() {
                     name="message"
                     rows="4"
                     placeholder="Tell us about your goals..."
-                    disabled
+                    required
                   />
                 </div>
-                <button type="submit" className="btn primary" disabled>
-                  Send message
+                <button type="submit" className="btn primary" disabled={formStatus === "submitting"}>
+                  {formStatus === "submitting" ? "Sending…" : "Send message"}
                 </button>
-                <p className="form-footnote">
-                  Contact form coming soon. Email us directly at{" "}
-                  <a href="mailto:hello@qorlia.com">hello@qorlia.com</a>.
-                </p>
+                <div className="form-footnote">
+                  {formStatus === "success" && <span className="form-success">Thank you! We'll reach out soon.</span>}
+                  {formError && <span className="form-error">{formError}</span>}
+                  {formDisabled && !formError && (
+                    <span>
+                      Configure Formspree to enable this form. Until then, email us directly at{" "}
+                      <a href="mailto:hello@qorlia.com">hello@qorlia.com</a>.
+                    </span>
+                  )}
+                  {!formDisabled && formStatus === "idle" && !formError && (
+                    <span>
+                      Prefer email? Write to us at <a href="mailto:hello@qorlia.com">hello@qorlia.com</a>.
+                    </span>
+                  )}
+                </div>
               </motion.form>
             </div>
           </motion.section>
